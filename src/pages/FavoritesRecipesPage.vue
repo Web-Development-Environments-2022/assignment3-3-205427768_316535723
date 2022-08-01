@@ -34,10 +34,10 @@ export default {
     };
   },
   mounted() {
-    this.updateRecipes();
+    this.favoriteRecipes();
   },
   methods: {
-    async updateRecipes() {
+    async favoriteRecipes() {
       try {
         const response = await this.axios.get(
          // this.$root.store.server_domain + "/recipes/random",
@@ -50,6 +50,7 @@ export default {
         const recipes = response.data;
         this.recipes = [];
         this.recipes.push(...recipes);
+        console.log(response.data);
         // console.log(this.recipes);
       } catch (error) {
         console.log(error);

@@ -57,9 +57,9 @@ export default {
         response = await this.axios.get(
           // "https://test-for-3-2.herokuapp.com/recipes/info",
          // this.$root.store.server_domain + "/recipes/info", 
-          process.env.VUE_APP_ROOT_API + "/recipes/info", 
+          process.env.VUE_APP_ROOT_API + "/recipes/recipe", 
           {
-            params: { id: this.$route.params.recipeId }
+            params: { recipeId: this.$route.params.recipeId }
           }
         );
 
