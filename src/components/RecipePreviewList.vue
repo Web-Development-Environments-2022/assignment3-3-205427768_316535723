@@ -4,15 +4,20 @@
       {{ title }}:
       <slot></slot>
     </h3>
-    <b-row>
-      <b-col v-for="r in recipes" :key="r.id">
-        <RecipePreview class="recipePreview" :recipe="r" />
-      </b-col>
-    </b-row>
+    <b-col>
+      <b-row>
+        <b-col v-for="r in recipes" :key="r.id">
+        col
+          <RecipePreview class="recipePreview" :recipe="r" />
+        </b-col>
+      </b-row>
+    </b-col>
+    
   </b-container>
 </template>
 
 <script>
+import { env } from "process";
 import RecipePreview from "./RecipePreview.vue";
 export default {
   name: "RecipePreviewList",
@@ -35,16 +40,25 @@ export default {
   },
   methods: {
     async updateRecipes() {
+      
       try {
         const response = await this.axios.get(
-         // this.$root.store.server_domain + "/recipes/random",
-          //process.env.VUE_APP_ROOT_API + "/recipes/random",
-          // "https://test-for-3-2.herokuapp.com/recipes/random"
+          // VUE_APP_ROOT_API = "http://localhost:80/"
+          // spooncular_apiKey = a2db82f6e7174087bd946ceb5db220bc
+          process.env.VUE_APP_ROOT_API + "recipes/random?apiKey" + process.env.spooncular_apiKey
+          //"http://localhost:80/recipes/random?apiKey=a2db82f6e7174087bd946ceb5db220bc",
+
+          // "http://localhost:80/users/views?apiKey=a2db82f6e7174087bd946ceb5db220bc"
+          //this is the real
+          
+          //"http://localhost:80/users/MyRecipes?apiKey=a2db82f6e7174087bd946ceb5db220bc",
+          // "https://api.spoonacular.com/recipes/informationBulk?ids=716429,716439,715538&apiKey=a2db82f6e7174087bd946ceb5db220bc"
         );
 
         // console.log(response);
         //const recipes = response.data.recipes;
         const recipes = response.data;
+        console.log(recipes);
         this.recipes = [];
         this.recipes.push(...recipes);
         // console.log(this.recipes);
@@ -58,6 +72,6 @@ export default {
 
 <style lang="scss" scoped>
 .container {
-  min-height: 400px;
+  min-height: 200px;
 }
 </style>

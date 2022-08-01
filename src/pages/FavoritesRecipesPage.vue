@@ -39,9 +39,11 @@ export default {
   methods: {
     async updateRecipes() {
       try {
+        console.log(process.env.VUE_APP_ROOT_API);
         const response = await this.axios.get(
-         // this.$root.store.server_domain + "/recipes/random",
-          process.env.VUE_APP_ROOT_API + "/users/favorites",
+          //this.$root.store.server_domain + "/recipes/random",
+          //process.env.VUE_APP_ROOT_API + "/users/favorites"
+        //  "http://localhost:8080/users/views",
           // "https://test-for-3-2.herokuapp.com/recipes/random"
         );
 

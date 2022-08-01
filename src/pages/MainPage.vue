@@ -1,17 +1,23 @@
 <template>
   <div class="container">
+    <br><br><br>
     <h1 class="title">Main Page</h1>
-    <RecipePreviewList title="Randome Recipes" class="RandomRecipes center" />
-    <router-link v-if="!$root.store.username" to="/login" tag="button">You need to Login to vue this</router-link>
-    {{ !$root.store.username }}
-    <RecipePreviewList
-      title="Last Viewed Recipes"
-      :class="{
-        RandomRecipes: true,
-        blur: !$root.store.username,
-        center: true
-      }"
-      disabled
+    <RecipePreviewList 
+        title="Random Recipes"
+        class="RandomRecipes center" />
+        <router-link v-if="!$root.store.username" 
+            :to="{ name: 'login' }"
+            tag="button">You need to Login to vue this
+        </router-link>
+    <!-- {{ !$root.store.username }} -->
+   <RecipePreviewList
+        title="Last Viewed Recipes"
+        :class="{
+          RandomRecipes: true,
+          blur: !$root.store.username,
+          center: true
+        }"
+        disabled="true"
     ></RecipePreviewList>
     <!-- <div
       style="position: absolute;top: 70%;left: 50%;transform: translate(-50%, -50%);"
@@ -33,6 +39,7 @@ export default {
 <style lang="scss" scoped>
 .RandomRecipes {
   margin: 10px 0 10px;
+  width: 100%;
 }
 .blur {
   -webkit-filter: blur(5px); /* Safari 6.0 - 9.0 */
@@ -42,4 +49,19 @@ export default {
   pointer-events: none;
   cursor: default;
 }
+
+.title
+{
+  // position: static;
+  text-align: center;
+  font-size: 120%;
+}
+
+.RandomRecipes
+{
+  font-family:Calibri;
+  font-weight: 900;
+  background-color: rgb(232, 227, 226);
+}
+
 </style>

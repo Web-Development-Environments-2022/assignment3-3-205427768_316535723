@@ -1,10 +1,12 @@
 <template>
+ 
   <router-link
     :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
     class="recipe-preview"
   >
+  
     <div class="recipe-body">
-      <img v-if="image_load" :src="recipe.image" class="recipe-image" />
+      <img v-if="image_load" :src="recipe.image" class="recipe-image">
     </div>
     <div class="recipe-footer">
       <div :title="recipe.title" class="recipe-title">
@@ -13,12 +15,22 @@
       <ul class="recipe-overview">
         <li>{{ recipe.readyInMinutes }} minutes</li>
         <li>{{ recipe.aggregateLikes }} likes</li>
+        <!-- <li> vegen: {{ recipe.vegan}}</li>
+        <li> vegetarian: {{ recipe.vegetarian}}</li> -->
+<!--         
+        <li>{{ }} view</li>
+        <li>{{ }} favorie</li> -->
       </ul>
+       
     </div>
+     
   </router-link>
+  
 </template>
 
 <script>
+import { METHODS } from 'http';
+
 export default {
   mounted() {
     this.axios.get(this.recipe.image).then((i) => {
@@ -34,7 +46,15 @@ export default {
     recipe: {
       type: Object,
       required: true
-    }
+    },
+
+  methods:{
+    // alertM: function (){
+    //   alert("hey");
+    //   console.log("here")
+    // },
+    
+  }
 
     // id: {
     //   type: Number,
@@ -83,8 +103,8 @@ export default {
   margin-top: auto;
   margin-bottom: auto;
   display: block;
-  width: 98%;
-  height: auto;
+  width: 100%;
+  height: 100%;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   background-size: cover;
@@ -92,14 +112,16 @@ export default {
 
 .recipe-preview .recipe-footer {
   width: 100%;
-  height: 50%;
+  height: 100%;
   overflow: hidden;
 }
 
 .recipe-preview .recipe-footer .recipe-title {
   padding: 10px 10px;
   width: 100%;
-  font-size: 12pt;
+  color: black;
+  font-family: cursive;
+  font-size: 14pt;
   text-align: left;
   white-space: nowrap;
   overflow: hidden;
@@ -137,5 +159,7 @@ export default {
   width: 90px;
   display: table-cell;
   text-align: center;
+  font-family: cursive;
+  font-size: 10pt;
 }
 </style>
