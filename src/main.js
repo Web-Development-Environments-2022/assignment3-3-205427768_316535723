@@ -2,6 +2,7 @@ import Vue from "vue";
 import App from "./App.vue";
 import VueAxios from "vue-axios";
 import axios from "axios";
+axios.defaults.withCredentials = true; //added
 
 import routes from "./routes";
 import VueRouter from "vue-router";
@@ -11,6 +12,7 @@ const router = new VueRouter({
 });
 
 import Vuelidate from "vuelidate";
+//import BootstrapVue from "bootstrap-vue"; //added
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 import {
@@ -24,7 +26,11 @@ import {
   AlertPlugin,
   ToastPlugin,
   LayoutPlugin,
+  FormCheckboxPlugin,
+  FormRadioPlugin,
+  ModalPlugin,
 } from "bootstrap-vue";
+import { Modal } from "bootstrap";
 [
   FormGroupPlugin,
   FormPlugin,
@@ -36,6 +42,9 @@ import {
   AlertPlugin,
   ToastPlugin,
   LayoutPlugin,
+  FormCheckboxPlugin,
+  FormRadioPlugin,
+  ModalPlugin,
 ].forEach((x) => Vue.use(x));
 Vue.use(Vuelidate);
 
@@ -63,7 +72,7 @@ axios.interceptors.response.use(
 );
 
 Vue.use(VueAxios, axios);
-
+//Vue.use(BootstrapVue);// added
 Vue.config.productionTip = false;
 
 const shared_data = {

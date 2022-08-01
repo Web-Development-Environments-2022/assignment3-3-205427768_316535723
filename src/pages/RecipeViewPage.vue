@@ -58,12 +58,10 @@ export default {
         response = await this.axios.get(
           // "https://test-for-3-2.herokuapp.com/recipes/info",
          // this.$root.store.server_domain + "/recipes/info", 
-          // process.env.VUE_APP_ROOT_API + "/recipes/recpie?apiKey=a2db82f6e7174087bd946ceb5db220bc", 
-          "https://api.spoonacular.com/recipes/716429/information?apiKey=a2db82f6e7174087bd946ceb5db220bc",
-          // "http://localhost:80/recipes/information?apiKey=a2db82f6e7174087bd946ceb5db220bc",
-          // {
-          //   params: { id: this.$route.params.recipeId }
-          // }
+          process.env.VUE_APP_ROOT_API + "/recipes/recipe", 
+          {
+            params: { recipeId: this.$route.params.recipeId }
+          }
         );
         console.log(response);
 

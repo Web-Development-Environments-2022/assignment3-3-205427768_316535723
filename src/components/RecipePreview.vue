@@ -6,7 +6,13 @@
   >
   
     <div class="recipe-body">
+<<<<<<< HEAD
       <img v-if="image_load" :src="recipe.image" class="recipe-image">
+=======
+      
+      <!--<img v-if="image_load" :src="recipe.image" class="recipe-image" /> -->
+       <img :src="recipe.image" class="recipe-image" />
+>>>>>>> a44ada5146dae6b40f00b4d3efb516dad53dd09e
     </div>
     <div class="recipe-footer">
       <div :title="recipe.title" class="recipe-title">
@@ -32,14 +38,14 @@
 import { METHODS } from 'http';
 
 export default {
-  mounted() {
+  /*mounted() {
     this.axios.get(this.recipe.image).then((i) => {
       this.image_load = true;
     });
-  },
+  },*/
   data() {
     return {
-      image_load: false
+     // image_load: false
     };
   },
   props: {
