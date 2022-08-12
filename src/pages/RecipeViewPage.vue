@@ -60,7 +60,9 @@ export default {
          // this.$root.store.server_domain + "/recipes/info", 
           process.env.VUE_APP_ROOT_API + "/recipes/recipe", 
           {
-            params: { recipeId: this.$route.params.recipeId }
+            // ?recipeId=715538/
+            // params: { recipeId: this.$route.params.recipeId }
+             params: { recipeId: 716429 }
           }
         );
         console.log(response);
@@ -103,6 +105,7 @@ export default {
 
       this.recipe = _recipe;
       console.log(recipe);
+      console.log("recipe");
     } catch (error) {
       console.log(error);
     }

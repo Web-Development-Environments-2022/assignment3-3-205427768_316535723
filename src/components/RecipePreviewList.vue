@@ -4,14 +4,22 @@
       {{ title }}:
       <slot></slot>
     </h3>
-    <b-col>
+    <!-- <b-col>
       <b-row>
         <b-col v-for="r in recipes" :key="r.id">
-        col
           <RecipePreview class="recipePreview" :recipe="r" />
         </b-col>
       </b-row>
-    </b-col>
+    </b-col> -->
+
+
+    <b-row>
+      <b-col id="random">
+        <b-row v-for="r in recipes" :key="r.id">
+          <RecipePreview class="recipePreview" :recipe="r" />
+        </b-row>
+      </b-col>
+    </b-row>
     
   </b-container>
 </template>
@@ -29,6 +37,11 @@ export default {
       type: String,
       required: true
     }
+    // },
+    // // Random, LastViewed
+    // ,listType: {
+    //   type: string,
+    // }
   },
   data() {
     return {
@@ -41,11 +54,32 @@ export default {
   methods: {
     async updateRecipes() {
       
+      var type = "Random";
+      //this.listType;
+      var listTypeRoute = "Random";
+      switch(type)
+      {
+        case "Random":
+            listTypeRoute = "/recipes/random";
+            break;
+        case "LastViewed":
+            listTypeRoute = "/users/views";
+            break;
+        default:  
+          listTypeRoute = null;
+      }
+      //listTypeRoute = "/recipes/random";
       try {
         const response = await this.axios.get(
+           process.env.VUE_APP_ROOT_API + listTypeRoute
+
+
+
           // VUE_APP_ROOT_API = "http://localhost:80/"
           // spooncular_apiKey = a2db82f6e7174087bd946ceb5db220bc
-          process.env.VUE_APP_ROOT_API + "recipes/random?apiKey" + process.env.spooncular_apiKey
+         
+          
+          //process.env.VUE_APP_ROOT_API + "recipes/random?apiKey" + process.env.spooncular_apiKey
           //"http://localhost:80/recipes/random?apiKey=a2db82f6e7174087bd946ceb5db220bc",
 
           // "http://localhost:80/users/views?apiKey=a2db82f6e7174087bd946ceb5db220bc"
@@ -72,6 +106,7 @@ export default {
 
 <style lang="scss" scoped>
 .container {
-  min-height: 200px;
+  max-width: 70%;
 }
+
 </style>

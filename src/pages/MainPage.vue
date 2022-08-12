@@ -2,37 +2,54 @@
   <div class="container">
     <br><br><br>
     <h1 class="title">Main Page</h1>
-    <RecipePreviewList 
-        title="Random Recipes"
-        class="RandomRecipes center" />
-        <router-link v-if="!$root.store.username" 
-            :to="{ name: 'login' }"
-            tag="button">You need to Login to vue this
-        </router-link>
-    <!-- {{ !$root.store.username }} -->
-   <RecipePreviewList
-        title="Last Viewed Recipes"
-        :class="{
-          RandomRecipes: true,
-          blur: !$root.store.username,
-          center: true
-        }"
-        disabled="true"
-    ></RecipePreviewList>
-    <!-- <div
-      style="position: absolute;top: 70%;left: 50%;transform: translate(-50%, -50%);"
-    >
-      Centeredasdasdad
-    </div>-->
+      
+    <!-- <b-container class="bv-example-row"> -->
+      <b-row>
+        <b-col>
+          <RecipePreviewList 
+          title="Random Recipes"        
+          class="RandomRecipes center" />
+        </b-col>
+        <b-col>
+          <div v-if="!$root.store.username">
+              <LoginPage 
+              class="Login left" style="margin-left:-10% ;"/>
+          </div>
+
+          <!-- <router-link v-if="!$root.store.username" 
+              :to="{ name: 'login' }"
+              tag="button">You need to Login to vue this
+              <LoginPage 
+              class="Login left" style="margin-left:-10% ;"/>
+          </router-link> -->
+          
+        </b-col>
+      </b-row>
+    <!-- </b-container> -->
+    
+
+    <!-- {{ !$root.store.username }}type = "Random"  :type = "LastViewed"   -->
+      <!-- <RecipePreviewList
+            title="Last Viewed Recipes"
+            :class="{
+              // RandomRecipes: true,
+              //LastViewed: True,
+              blur: !$root.store.username,
+              center: true
+            }"
+            disabled="true"
+        ></RecipePreviewList> -->
   </div>
 </template>
 
 <script>
 import RecipePreviewList from "../components/RecipePreviewList";
+import LoginPage from "./LoginPage.vue";
 export default {
   components: {
-    RecipePreviewList
-  }
+    RecipePreviewList,
+    LoginPage
+}
 };
 </script>
 

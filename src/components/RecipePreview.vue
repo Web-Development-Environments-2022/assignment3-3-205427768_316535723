@@ -6,13 +6,9 @@
   >
   
     <div class="recipe-body">
-<<<<<<< HEAD
-      <img v-if="image_load" :src="recipe.image" class="recipe-image">
-=======
       
       <!--<img v-if="image_load" :src="recipe.image" class="recipe-image" /> -->
        <img :src="recipe.image" class="recipe-image" />
->>>>>>> a44ada5146dae6b40f00b4d3efb516dad53dd09e
     </div>
     <div class="recipe-footer">
       <div :title="recipe.title" class="recipe-title">
@@ -92,31 +88,32 @@ export default {
 <style scoped>
 .recipe-preview {
   display: inline-block;
-  width: 90%;
+  width: 100%;
   height: 100%;
   position: relative;
-  margin: 10px 10px;
+  margin: 15px 15px;
 }
 .recipe-preview > .recipe-body {
-  width: 100%;
-  height: 200px;
+  width: 80%;
+  height: 80%;
   position: relative;
 }
 
 .recipe-preview .recipe-body .recipe-image {
-  margin-left: auto;
+  margin-left: 20%;
   margin-right: auto;
   margin-top: auto;
   margin-bottom: auto;
   display: block;
-  width: 100%;
-  height: 100%;
+  width: 60%;
+  height: 60%;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   background-size: cover;
 }
 
 .recipe-preview .recipe-footer {
+  margin-left: 5%;
   width: 100%;
   height: 100%;
   overflow: hidden;
@@ -124,7 +121,8 @@ export default {
 
 .recipe-preview .recipe-footer .recipe-title {
   padding: 10px 10px;
-  width: 100%;
+   margin-left: 10%;
+  width: 70%;
   color: black;
   font-family: cursive;
   font-size: 14pt;
@@ -136,8 +134,8 @@ export default {
 }
 
 .recipe-preview .recipe-footer ul.recipe-overview {
-  padding: 5px 10px;
-  width: 100%;
+  padding: 1px 10px;
+  width: 70%;
   display: -webkit-box;
   display: -moz-box;
   display: -webkit-flex;

@@ -14,6 +14,7 @@
           type="text"
           :state="validateState('username')"
         ></b-form-input>
+
         <b-form-invalid-feedback v-if="!$v.form.username.required">
           Username is required
         </b-form-invalid-feedback>
@@ -25,6 +26,49 @@
         </b-form-invalid-feedback>
       </b-form-group>
 
+      <!-- First name -->
+      <b-form-group
+        id="input-group-firstName"
+        label-cols-sm="3"
+        label="First Name:"
+        label-for="firstName"
+      >
+        <b-form-input
+          id="firstName"
+          v-model="$v.form.firstName.$model"
+          type="text"
+          :state="validateState('firstName')"
+        ></b-form-input>
+        <b-form-invalid-feedback v-if="!$v.form.firstName.required">
+          first name is required
+        </b-form-invalid-feedback>
+        <b-form-invalid-feedback v-if="!$v.form.firstName.alpha">
+           first name alpha
+        </b-form-invalid-feedback>
+      </b-form-group>
+
+      <!-- Last name -->
+      <b-form-group
+        id="input-group-lastName"
+        label-cols-sm="3"
+        label="Last Name:"
+        label-for="lastName"
+      >
+        <b-form-input
+          id="lastName"
+          v-model="$v.form.lastName.$model"
+          type="text"
+          :state="validateState('lastName')"
+        ></b-form-input>
+        <b-form-invalid-feedback v-if="!$v.form.lastName.required">
+          last name is required
+        </b-form-invalid-feedback>
+        <b-form-invalid-feedback v-if="!$v.form.lastName.alpha">
+           last name alpha
+        </b-form-invalid-feedback>
+      </b-form-group>
+
+      <!-- Country -->
       <b-form-group
         id="input-group-country"
         label-cols-sm="3"
@@ -42,6 +86,7 @@
         </b-form-invalid-feedback>
       </b-form-group>
 
+      <!-- Password -->
       <b-form-group
         id="input-group-Password"
         label-cols-sm="3"
@@ -68,6 +113,7 @@
         </b-form-invalid-feedback>
       </b-form-group>
 
+      <!-- Confirm Password -->
       <b-form-group
         id="input-group-confirmedPassword"
         label-cols-sm="3"
@@ -87,6 +133,27 @@
           v-else-if="!$v.form.confirmedPassword.sameAsPassword"
         >
           The confirmed password is not equal to the original password
+        </b-form-invalid-feedback>
+      </b-form-group>
+
+      <!-- Email -->
+      <b-form-group
+        id="input-group-email"
+        label-cols-sm="3"
+        label="Email:"
+        label-for="email"
+      >
+        <b-form-input
+          id="email"
+          type="email"
+          v-model="$v.form.email.$model"
+          :state="validateState('email')"
+        ></b-form-input>
+        <b-form-invalid-feedback v-if="!$v.form.email.required">
+          email is required
+        </b-form-invalid-feedback>
+        <b-form-invalid-feedback v-if="!$v.form.email.email">
+          email is not legall
         </b-form-invalid-feedback>
       </b-form-group>
 
@@ -156,6 +223,15 @@ export default {
         length: (u) => minLength(3)(u) && maxLength(8)(u),
         alpha
       },
+
+      firstName: {
+        required,
+        alpha
+      },
+      lastName: {
+        required,
+        alpha
+      },
       country: {
         required
       },
@@ -166,6 +242,11 @@ export default {
       confirmedPassword: {
         required,
         sameAsPassword: sameAs("password")
+      },
+
+      email:{
+        required,
+        email
       }
     }
   },
@@ -187,7 +268,11 @@ export default {
           process.env.VUE_APP_ROOT_API + "/Register",
           {
             username: this.form.username,
-            password: this.form.password
+            firstname: this.form.firstName,
+            lastname: this.form.lastName,
+            country: this.form.country,
+            password: this.form.password,
+            email: this.form.email
           }
         );
         this.$router.push("/login");
@@ -226,5 +311,6 @@ export default {
 <style lang="scss" scoped>
 .container {
   max-width: 500px;
+  margin-top: 10%;
 }
 </style>
