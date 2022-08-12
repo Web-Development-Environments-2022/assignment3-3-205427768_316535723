@@ -42,10 +42,10 @@ export default {
         console.log(process.env.VUE_APP_ROOT_API);
         const response = await this.axios.get(
           //this.$root.store.server_domain + "/recipes/random",
-          //process.env.VUE_APP_ROOT_API + "/users/favorites"
+          process.env.VUE_APP_ROOT_API + "/users/favorites"
         //  "http://localhost:8080/users/views",
           // "https://test-for-3-2.herokuapp.com/recipes/random"
-        );
+        ); 
 
         // console.log(response);
         //const recipes = response.data.recipes;
@@ -53,7 +53,7 @@ export default {
         this.recipes = [];
         this.recipes.push(...recipes);
         console.log(response.data);
-        // console.log(this.recipes);
+        // console.log(this.recipes); 
       } catch (error) {
         console.log(error);
       }

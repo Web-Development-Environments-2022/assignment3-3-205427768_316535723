@@ -10,5 +10,4 @@ export default [
     "Primal",
     "Low FODMAP",
     "Whole30",
-
   ];
