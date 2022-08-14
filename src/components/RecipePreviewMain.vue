@@ -1,14 +1,19 @@
 <template >
-  
+  <div>
     <div class="recipe-footer">
-    <b-card no-body class="recipe-overview" style="max-width:740px">
-      <b-row no-gutters>
-        <router-link
-          :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
-          class="recipe-preview"
-          ><b-card-img :src="recipe.image" class="recipe-image"> </b-card-img>
-        </router-link>
-        <b-col no-gutters id="card">
+      <b-card
+        no-body
+        class="overflow-hidden"
+      >
+      <b-col no-gutters id="card">
+        <b-row md="6">
+          <router-link
+            :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
+            class="recipe-preview"
+            ><b-card-img :src="recipe.image" alt="Image" class="recipe-image">
+            </b-card-img>
+          </router-link>
+        </b-row>
         <b-row md="6">
           <b-card-body :title="recipe.title" class="recipe-title">
             <b-card-text>
@@ -38,7 +43,7 @@
                   <b-col class="recipe-overview">
                     <div v-if="recipe.favorite">
                       <img src="../assets/favorite.png" class="img_logo" />
-                      <!-- favorite -->
+                      favorite
                     </div>
                     <div v-if="!recipe.favorite">
                       <div
@@ -52,7 +57,7 @@
                           @click="addToFavorites"
                         />
                         <!-- not favorite -->
-                        <!-- <span v-if="showText === 1">Text 1</span> -->
+                        <span v-if="showText === 1">Text 1</span>
                       </div>
                     </div>
                   </b-col>
@@ -74,7 +79,7 @@
                   <b-col class="recipe-overview">
                     <div v-if="recipe.vegan">
                       <img src="../assets/vegan1.png" class="img_logo" />
-                      <!-- vegan -->
+                      vegan
                     </div>
                   </b-col>
                   
@@ -84,8 +89,10 @@
           </b-card-body>
         </b-row>
       </b-col>
-      </b-row>
-    </b-card>
+        
+
+      </b-card>
+    </div>
   </div>
   <!-- </router-link>-->
 </template>
@@ -112,6 +119,11 @@ export default {
     },
 
     //methods:{
+    // alertM: function (){
+    //   alert("hey");
+    //   console.log("here")
+    // },
+
     //}
 
     // id: {
@@ -141,23 +153,21 @@ export default {
   methods: {
     async addToFavorites() {
       this.recipe.favorite = true;
-       try {
-        console.log(this.recipe.id);
-        const response = await this.axios.post(
-          // this.$root.store.server_domain + "/recipes/random",
-          
+      try {
+        // console.log(this.recipe.id);
+        // const response = await this.axios.post(
+        //   // this.$root.store.server_domain + "/recipes/random",
 
-          process.env.VUE_APP_ROOT_API + "/users/favorites",
-           {
-            recipeId: this.recipe.id,
-          }
-          // "https://test-for-3-2.herokuapp.com/recipes/random"
-        );
-        
+        //process.env.VUE_APP_ROOT_API + "/users/favorites",
+        //   {
+        //     recipeId: this.recipe.id,
+        //   }
+        //   // "https://test-for-3-2.herokuapp.com/recipes/random"
+        // );
 
         //const recipes = response.data;
-       // this.recipes = [];
-       // this.recipes.push(...recipes);
+        // this.recipes = [];
+        // this.recipes.push(...recipes);
          this.recipes = [
           {
             id: 641227,
@@ -199,65 +209,72 @@ export default {
       } catch (error) {
         console.log(error);
       }
-      
     },
   },
 };
 </script>
 
 <style scoped>
+table {
+  display: table;
+}
+table tr {
+  display: table-cell;
+}
+table tr td {
+  display: block;
+}
 .recipe-preview {
   display: inline-block;
-  width: 100%;
-  height: 100%;
+  width: 90%;
   position: relative;
-  /* margin: 15px 15px; */
-  margin: 10px 10px;
-  font-size: 10pt;
+  /* margin: 2px 10px; */
+  margin-left: 5%;
+  margin-top: 5%;
 }
 .recipe-preview > .recipe-body {
-  width: 80%;
-  height: 80%;
-  position: relative;
+  width: 10%;
+  height: 2px;
+  position: fixed;
 }
 
 .recipe-preview .recipe-body .recipe-image {
-  margin-left: 20%;
+  margin-left: auto;
   margin-right: auto;
   margin-top: auto;
   margin-bottom: auto;
   display: block;
-  width: 70%;
-  height: 70%;
+  width: 100%;
+  height: 100%;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   background-size: cover;
 }
 
 .recipe-preview .recipe-footer {
-  margin-left: 5%;
-  width: 100%;
+  width: 120%;
   height: 100%;
   overflow: hidden;
 }
 
 .recipe-preview .recipe-footer .recipe-title {
   padding: 10px 10px;
-  margin-left: 10%;
-  width: 70%;
+  width: 120%;
   color: black;
   font-family: cursive;
-  font-size: 10pt;
-  text-align: left;
   white-space: nowrap;
   overflow: hidden;
   -o-text-overflow: ellipsis;
   text-overflow: ellipsis;
 }
 
-.recipe-preview .recipe-footer ul.recipe-overview {
-  padding: 1px 10px;
-  width: 70%;
+.recipe-overview{
+  font-size: 80%;
+  text-align: center;
+}
+/*.recipe-preview .recipe-footer ul.recipe-overview {
+  padding: 5px 10px;
+  width: 100%;
   display: -webkit-box;
   display: -moz-box;
   display: -webkit-flex;
@@ -272,9 +289,9 @@ export default {
   flex: 1 auto;
   table-layout: fixed;
   margin-bottom: 0px;
-}
+}*/
 
-.recipe-preview .recipe-footer ul.recipe-overview li {
+/*.recipe-preview .recipe-footer ul.recipe-overview li {
   -webkit-box-flex: 1;
   -moz-box-flex: 1;
   -o-box-flex: 1;
@@ -286,10 +303,11 @@ export default {
   display: table-cell;
   text-align: center;
   font-family: cursive;
-}
+  font-size: 10pt;
+}*/
 .img_logo {
-  width: 25px;
-  height: 25px;
+  width: 30px;
+  height: 30px;
 }
 
 </style>

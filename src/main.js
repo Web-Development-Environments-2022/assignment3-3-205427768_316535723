@@ -2,6 +2,8 @@ import Vue from "vue";
 import App from "./App.vue";
 import VueAxios from "vue-axios";
 import axios from "axios";
+import VueCookies from 'vue-cookies' //added
+Vue.use(VueCookies); // added
 axios.defaults.withCredentials = true; //added
 
 import routes from "./routes";
@@ -29,6 +31,9 @@ import {
   FormCheckboxPlugin,
   FormRadioPlugin,
   ModalPlugin,
+  ImagePlugin,
+  FormFilePlugin,
+  FormTextareaPlugin,
 } from "bootstrap-vue";
 import { Modal } from "bootstrap";
 [
@@ -45,6 +50,9 @@ import { Modal } from "bootstrap";
   FormCheckboxPlugin,
   FormRadioPlugin,
   ModalPlugin,
+  ImagePlugin,
+  FormFilePlugin,
+  FormTextareaPlugin,
 ].forEach((x) => Vue.use(x));
 Vue.use(Vuelidate);
 

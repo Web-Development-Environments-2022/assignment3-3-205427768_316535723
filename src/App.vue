@@ -10,6 +10,12 @@
         <router-link :to="{ name: 'login' }">Login</router-link>|
       </span>
       <span v-else>
+         <!-- <b-nav-item-dropdown id="personal" text="Personal" down >
+          <router-link :to="{ name: 'myRecipes' }">My Recipes</router-link>
+          <router-link :to="{ name: 'favoriteRecipes'}">favorie Recipes</router-link>
+          <router-link :to="{ name: 'familyRecipes' }">family Recipes</router-link>
+          {{$root.store.username }}: <button @click="Logout">Logout</button>
+        </b-nav-item-dropdown> -->
         <router-link :to="{ name: 'myRecipes' }">My Recipes</router-link>|
         <router-link :to="{ name: 'favoriteRecipes'}">favorie Recipes</router-link>|
         <router-link :to="{ name: 'familyRecipes' }">family Recipes</router-link>|
@@ -95,5 +101,9 @@ export default {
 	background-color:#6b7574;
 	color: rgb(255, 255, 255);
 } 
+
+#personal{
+  background-color: antiquewhite;
+}
 
 </style>
