@@ -6,11 +6,17 @@
       {{ title }}:
       <slot></slot>
     </h3>
-    <b-row>
+    <!--<b-row>
       <b-col v-for="r in recipes" :key="r.id">
         <RecipePreview class="recipePreview" :recipe="r" />
       </b-col>
-    </b-row>
+    </b-row>-->
+    <b-row v-for="row in nrows" :key="row">
+        <b-col v-for="col in 3" :key="col">
+         <!--   {{recipes.length}} -->
+          <RecipePreview class="recipePreview" :recipe="recipes[(row-1) * 3 +(col-1)]" v-if="(row-1) * 3 + (col-1) < recipes.length" />
+        </b-col>
+      </b-row>
   </b-container>
   </div>
 </template>
@@ -36,10 +42,15 @@ export default {
   mounted() {
     this.favoriteRecipes();
   },
+  computed: {
+    nrows() {
+      return Math.floor((this.recipes.length - 1) / 3) + 1;
+    },
+  },
   methods: {
     async favoriteRecipes() {
       try {
-        console.log(process.env.VUE_APP_ROOT_API);
+       /* console.log(process.env.VUE_APP_ROOT_API);
         const response = await this.axios.get(
           //this.$root.store.server_domain + "/recipes/random",
           process.env.VUE_APP_ROOT_API + "/users/favorites"
@@ -53,7 +64,7 @@ export default {
         this.recipes = [];
         this.recipes.push(...recipes);
         console.log(response.data);
-        // console.log(this.recipes); 
+        // console.log(this.recipes); */
       } catch (error) {
         console.log(error);
       }

@@ -167,20 +167,20 @@
         @input="sortItems"
       ></b-form-radio-group>
     </b-form-group>
-
-   <!--  <b-row v-for="row in nrows" :key="row">
+<b-container>
+     <b-row v-for="row in nrows" :key="row">
         <b-col v-for="col in 3" :key="col">
-          {{(row-1) * 3 +(col-1)}} 
-          {{sortedItems.length}}
+          <!--{{(row-1) * 3 +(col-1)}} 
+          {{sortedItems.length}}-->
           <RecipePreview class="recipePreview" :recipe="sortedItems[(row-1) * 3 +(col-1)]" v-if="(row-1) * 3 + (col-1) < sortedItems.length" />
         </b-col>
-      </b-row>-->
-    <b-row v-for="r in sortedItems" :key="r.id">
+      </b-row>
+</b-container>
+    <!--<b-row v-for="r in sortedItems" :key="r.id">-->
        <!--<b-col v-for="r in recipes" :key="r.id"> -->
-      col
-      <RecipePreview class="recipePreview" :recipe="r" />
+     <!-- <RecipePreview class="recipePreview" :recipe="r" />-->
        <!--</b-col>-->
-    </b-row> 
+    <!--</b-row> -->
 
     <!--<b-container>
     <h3>

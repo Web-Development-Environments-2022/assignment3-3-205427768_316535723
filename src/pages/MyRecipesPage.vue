@@ -391,8 +391,11 @@ export default {
             servings: this.form.servings,
             
           },
+          
           // "https://test-for-3-2.herokuapp.com/recipes/random"
+
         );
+        this.myRecipes();
       } catch (err) {
         console.log(err.response);
         this.form.submitError = err.response.data.message;
