@@ -21,6 +21,12 @@
             <div class="mb-3">
               <div>Ready in <b>{{ recipe.readyInMinutes }}</b> minutes</div>
               <div>Likes: <b>{{ recipe.popularity }} </b> likes</div>
+              <div>Vegan: <b>{{ recipe.vegan }} </b></div>
+              <div>Vegetarian: <b>{{ recipe.vegetarian }} </b></div>
+              <div>GlutenFree: <b>{{ recipe.glutenFree }} </b></div>
+              <div>Servings: <b>{{ recipe.servings }} </b></div>
+              <!-- <div>view: <b>{{ recipe.view }} </b></div>
+              <div>favorite: <b>{{ recipe.favorite }} </b></div> -->
             </div>
           </div>
           <div class="wrapped2">
@@ -417,6 +423,12 @@ export default {
         popularity:response.data.popularity,
         ingredients:response.data.ingredients,
         _instructions:instructionsArray,
+        vegan: response.data.vegan,
+        vegetarian: response.data.vegetarian,
+        glutenFree: response.data.glutenFree,
+        servings: response.data.servings,
+        view: response.data.is_viewed,
+        favorite: response.data.is_favorite,
       };
 
       this.recipe = _recipe;
