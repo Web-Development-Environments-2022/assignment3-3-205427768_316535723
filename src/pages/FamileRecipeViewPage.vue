@@ -164,7 +164,7 @@ export default {
 
 .container {
   margin-top: 7%;
-  background-color: antiquewhite;
+  
   margin-bottom: 7%;
 }
 .wrapped1 {

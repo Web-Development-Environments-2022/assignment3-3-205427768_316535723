@@ -1,11 +1,77 @@
 <template>
   <div class="container">
     <div v-if="recipe">
-      <div class="recipe-header mt-3 mb-4">
+     <!-- <div class="recipe-header mt-3 mb-4">-->
         <h1>
           <b>{{ recipe.title }}</b>
         </h1>
-        <img :src="recipe.image" class="center" />
+        <!--<img :src="recipe.image" class="center" />-->
+        <b-row md="15">
+          <b-col>
+            <img :src="recipe.image" class="center" />
+          </b-col>
+          <!--</div>-->
+          <!--<div class="wrapped3">-->
+          <b-col>
+            <div class="mb-3">
+              <div>
+                <img src="../assets/clock.png" class="img_logo" />
+                Ready in <b>{{ recipe.readyInMinutes }}</b> minutes
+              </div>
+              <div>
+                <img src="../assets/like.png" class="img_logo" />
+                <b>{{ recipe.popularity }} </b> likes
+              </div>
+              <div v-if="recipe.view">
+                <img src="../assets/viewed.png" class="img_logo" />
+                viewed
+              </div>
+              <div v-if="!recipe.view">
+                <img src="../assets/not-viewed.png" class="img_logo" />
+                not viewed
+              </div>
+
+              <div v-if="recipe.favorite">
+                <img src="../assets/favorite.png" class="img_logo" />
+                favorite
+              </div>
+              <div v-if="!recipe.favorite">
+                <!--<div
+                        class="img-wrapper"
+                        @mouseover="showText = 1"
+                        @mouseleave="showText = 0"
+                      >-->
+                <img
+                  src="../assets/not-favorite.png"
+                  class="img_logo"
+                  id="addToFavorite"
+                />
+                not favorite
+                <!-- <span v-if="showText === 1">Text 1</span> -->
+                <!--</div>-->
+              </div>
+              <div v-if="recipe.vegan">
+                <img src="../assets/vegan1.png" class="img_logo" />
+                vegan
+              </div>
+              <div v-if="recipe.vegetarian">
+                <img src="../assets/vegetarian.png" class="img_logo" />
+                vegetarian
+              </div>
+              <div v-if="recipe.glutenFree">
+                <img src="../assets/gluten_free1.png" class="img_logo" />
+                Gluten Free
+              </div>
+              <div>
+                <img src="../assets/servings.png" class="img_logo" />
+                Servings: <b>{{ recipe.servings }} </b>
+              </div>
+              <!-- <div>view: <b>{{ recipe.view }} </b></div>
+              <div>favorite: <b>{{ recipe.favorite }} </b></div> -->
+            </div>
+            
+          </b-col>
+        </b-row>
       </div>
       <div class="recipe-body">
         <div class="wrapper">
@@ -13,40 +79,31 @@
             <b>Ingredients: </b>
             <ul>
               <li
-                v-for="(r, index) in recipe.ingredients" 
+                v-for="(r, index) in recipe.ingredients"
                 :key="index + '_' + r.id"
               >
-              <div v-if="$route.params.type ==='spoonacular'">
-              {{ r.original }}
-              </div>
-              <div v-else>
-                {{ r }}
+                <div v-if="$route.params.type === 'spoonacular'">
+                  {{ r.original }}
+                </div>
+                <div v-else>
+                  {{ r }}
                 </div>
               </li>
             </ul>
-            <br /><br /><br /><br />
-            <div class="mb-3">
-              <div>
-                Ready in <b>{{ recipe.readyInMinutes }}</b> minutes
-              </div>
-              <div>
-                Likes: <b>{{ recipe.popularity }} </b> likes
-              </div>
-              <div>
-                Vegan: <b>{{ recipe.vegan }} </b>
-              </div>
-              <div>
-                Vegetarian: <b>{{ recipe.vegetarian }} </b>
-              </div>
-              <div>
-                GlutenFree: <b>{{ recipe.glutenFree }} </b>
-              </div>
-              <div>
-                Servings: <b>{{ recipe.servings }} </b>
-              </div>
-              <!-- <div>view: <b>{{ recipe.view }} </b></div>
-              <div>favorite: <b>{{ recipe.favorite }} </b></div> -->
-            </div>
+           
+            
+              
+              
+              
+              
+
+              
+              
+              
+              
+              
+             
+             
           </div>
           <div class="wrapped2">
             <b>Instructions:</b>
@@ -56,13 +113,12 @@
               </li>
             </ol>
           </div>
-        </div>
+       <!--</div>-->
       </div>
       <!-- <pre>
       {{ $route.params }}
       {{ recipe }}
     </pre -->
-      
     </div>
   </div>
 </template>
@@ -72,7 +128,6 @@ export default {
   data() {
     return {
       recipe: null,
-     
     };
   },
   async created() {
@@ -115,8 +170,8 @@ export default {
           vegetarian: response.data.vegetarian,
           glutenFree: response.data.glutenFree,
           servings: response.data.servings,
-          view: response.data.is_viewed,
-          favorite: response.data.is_favorite,
+          view: response.data.view,
+          favorite: response.data.favorite,
         };
 
         this.recipe = _recipe;
@@ -126,16 +181,13 @@ export default {
       if (this.$route.params.type == "my") {
         try {
           response = await this.axios.get(
-           
             process.env.VUE_APP_ROOT_API + "/users/recipe",
             {
               params: { recipeId: this.$route.params.recipeId },
-              
             }
           );
           console.log(response);
 
-          
           if (response.status !== 200) this.$router.replace("/NotFound");
         } catch (error) {
           console.log("error.response.status", error.response.status);
@@ -143,7 +195,7 @@ export default {
           return;
         }
         console.log(response.data[0]);
-       
+
         var instructionsArray = response.data[0].instructions.split(".");
         var ingredientsArray = response.data[0].extendedIngredients.split(",");
         let _recipe = {
@@ -190,11 +242,19 @@ export default {
   margin-left: 7%;
   width: 40%;
 }
-.center {
+/*.center {
   display: block;
   margin-left: auto;
   margin-right: auto;
   width: 30%;
+}*/
+.center {
+  /*display: block;
+  margin-left: 10%;
+  margin-right: auto;
+  width: 30%;*/
+  width: 50%;
+  margin-left: 20%
 }
 
 .recipe-header {
@@ -207,5 +267,9 @@ export default {
 h1 {
   font-size: 20pt;
   text-align: center;
+}
+.img_logo {
+  width: 35px;
+  height: 35px;
 }
 </style>
