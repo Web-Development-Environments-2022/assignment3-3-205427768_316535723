@@ -1,27 +1,44 @@
 <template>
-  <div>
-    <h1 class="title">My Recipes</h1>
-    <b-button v-b-modal.modal-prevent-closing>Add a recipe</b-button>
-    <b-container>
+  <div class="container">
+    <h1 class="title" style="margin-top: 5%; margin-left: 45%">My Recipes</h1>
+    <!--<b-button v-b-modal.modal-prevent-closing style="margin-left:40%; width:20%; font-size: x-large ;">Add a recipe</b-button>-->
+    <b-button
+      id="show-btn"
+      @click="$bvModal.show('bv-modal-example')"
+      style="margin-left: 40%; width: 20%; font-size: x-large"
+      >Add a recipe</b-button
+    >
+
+    <b-container >
       <h3>
         <!-- {{ title }}: -->
         <slot></slot>
       </h3>
-      <!--  <b-row>
-        <b-col v-for="r in recipes" :key="r.id">
-          <RecipePreview class="recipePreview" :recipe="r" />
-        </b-col>
-      </b-row> -->
       <b-row v-for="row in nrows" :key="row">
         <b-col v-for="col in 3" :key="col">
-         <!--   {{recipes.length}} -->
-          <RecipePreview class="recipePreview" :recipe="recipes[(row-1) * 3 +(col-1)]" v-if="(row-1) * 3 + (col-1) < recipes.length" />
+          <!--   {{recipes.length}} -->
+          <RecipePreview
+            class="recipePreview"
+            type="my"
+            :recipe="recipes[(row - 1) * 3 + (col - 1)]"
+            v-if="(row - 1) * 3 + (col - 1) < recipes.length"
+          />
         </b-col>
       </b-row>
     </b-container>
 
-    <b-modal
+   <!-- <b-modal
       id="modal-prevent-closing"
+      ref="modal"
+      title="Add a recipe"
+      @show="resetModal"
+      @hidden="resetModal"
+      @ok="handleSubmit"
+      
+    >-->
+    <b-modal
+      id="bv-modal-example"
+      hide-footer
       ref="modal"
       title="Add a recipe"
       @show="resetModal"
@@ -40,6 +57,7 @@
             id="title-input"
             v-model="$v.form.title.$model"
             :state="validateState('title')"
+            placeholder="Enter title..."
           ></b-form-input>
           <b-form-invalid-feedback v-if="!$v.form.title.required">
             title is required
@@ -49,6 +67,7 @@
         <b-form-group label="readyInMinutes" label-for="readyInMinutes-input">
           <b-form-input
             id="readyInMinutes-input"
+            placeholder="Enter preparation minutes..."
             v-model="$v.form.readyInMinutes.$model"
             :state="validateState('readyInMinutes')"
             type="number"
@@ -58,8 +77,8 @@
             readyInMinutes is required
           </b-form-invalid-feedback>
           <b-form-invalid-feedback v-else-if="!$v.form.readyInMinutes.minValue">
-          Time in minutes must be greater than 1
-        </b-form-invalid-feedback>
+            Time in minutes must be greater than 1
+          </b-form-invalid-feedback>
         </b-form-group>
 
         <b-form-group label="image" label-for="image-input">
@@ -71,11 +90,12 @@
           ></b-form-file>-->
           <b-form-input
             id="image-input"
+            placeholder="Enter image URL..."
             v-model="$v.form.image.$model"
             :state="validateState('image')"
           ></b-form-input>
           <b-form-invalid-feedback v-if="!$v.form.image.required">
-            image is required
+            image URL is required
           </b-form-invalid-feedback>
         </b-form-group>
 
@@ -90,8 +110,6 @@
           >
             <img src="../assets/vegan1.png" class="img_logo" />
             vegan
-
-          
           </b-form-checkbox>
         </b-form-group>
 
@@ -115,8 +133,8 @@
             id="glutenFree-input"
             v-model="$v.form.glutenFree.$model"
             name="glutenFree-input"
-            value="0"
-            unchecked-value="1"
+            value="1"
+            unchecked-value="0"
           >
             <img src="../assets/gluten_free1.png" class="img_logo" />
             glutenFree
@@ -126,7 +144,7 @@
           <b-form-textarea
             id="textarea"
             v-model="$v.form.ingredients.$model"
-            placeholder="Enter ingredients..."
+            placeholder="Enter ingredients, separated by comma..."
             rows="3"
             max-rows="6"
             :state="validateState('ingredients')"
@@ -154,6 +172,7 @@
           <b-form-input
             id="servings-input"
             v-model="$v.form.servings.$model"
+            placeholder="Enter number of servings..."
             :state="validateState('servings')"
             type="number"
             min="1"
@@ -162,14 +181,14 @@
             number of servings is required
           </b-form-invalid-feedback>
           <b-form-invalid-feedback v-else-if="!$v.form.servings.minValue">
-          number of servings must be greater than 1
-        </b-form-invalid-feedback>
+            number of servings must be greater than 1
+          </b-form-invalid-feedback>
         </b-form-group>
         <b-button type="reset" variant="danger">Reset</b-button>
         <b-button
           type="submit"
           variant="primary"
-          style="width: 250px"
+          style="width: 100px"
           class="ml-5 w-75"
           >Add Recipe</b-button
         >
@@ -189,6 +208,10 @@
             :state="nameState"
             
           ></b-form-input> -->
+      <!--<b-button class="mt-3" block @click="$bvModal.hide('bv-modal-example')">Close Me</b-button>-->
+      <b-button class="mt-3" block @click="$bvModal.hide('bv-modal-example')"
+        >Close Me</b-button
+      >
     </b-modal>
   </div>
 </template>
@@ -244,7 +267,7 @@ export default {
       readyInMinutes: {
         required,
         minValue: minValue(1),
-       // positive: (r) => min(1)(r),
+        // positive: (r) => min(1)(r),
       },
       image: {
         required,
@@ -265,7 +288,7 @@ export default {
 
       servings: {
         required,
-        minValue: minValue(1)
+        minValue: minValue(1),
       },
       ingredients: {
         required,
@@ -289,7 +312,6 @@ export default {
         const response = await this.axios.get(
           // this.$root.store.server_domain + "/recipes/random",
           process.env.VUE_APP_ROOT_API + "/users/MyRecipes"
-          // "https://test-for-3-2.herokuapp.com/recipes/random"
         );
 
         const recipes = response.data;
@@ -377,7 +399,7 @@ export default {
         const response = await this.axios.post(
           // this.$root.store.server_domain + "/recipes/random",
           //"http://127.0.0.1:3000/users/MyRecipes",
-           process.env.VUE_APP_ROOT_API +"/users/MyRecipes",
+          process.env.VUE_APP_ROOT_API + "/users/MyRecipes",
           {
             title: this.form.title,
             readyInMinutes: this.form.readyInMinutes,
@@ -389,13 +411,10 @@ export default {
             ingredients: this.form.ingredients,
             instructions: this.form.instructions,
             servings: this.form.servings,
-            
-          },
-          
-          // "https://test-for-3-2.herokuapp.com/recipes/random"
-
+          }
         );
         this.myRecipes();
+        this.$bvModal.hide("bv-modal-example");
       } catch (err) {
         console.log(err.response);
         this.form.submitError = err.response.data.message;
@@ -424,7 +443,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+// .container {
+//   min-height: 400px;
+// }
+
 .container {
+ 
   min-height: 400px;
 }
 .img_logo {

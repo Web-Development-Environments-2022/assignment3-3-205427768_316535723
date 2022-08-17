@@ -34,6 +34,7 @@ import {
   ImagePlugin,
   FormFilePlugin,
   FormTextareaPlugin,
+  PopoverPlugin,
 } from "bootstrap-vue";
 import { Modal } from "bootstrap";
 [
@@ -53,6 +54,7 @@ import { Modal } from "bootstrap";
   ImagePlugin,
   FormFilePlugin,
   FormTextareaPlugin,
+  PopoverPlugin,
 ].forEach((x) => Vue.use(x));
 Vue.use(Vuelidate);
 
@@ -85,6 +87,8 @@ Vue.config.productionTip = false;
 
 const shared_data = {
   username: localStorage.username,
+  lastSearch: localStorage.lastSearch,
+  
   login(username) {
     localStorage.setItem("username", username);
     this.username = username;
@@ -93,7 +97,13 @@ const shared_data = {
   logout() {
     console.log("logout");
     localStorage.removeItem("username");
+    localStorage.removeItem("lastSearch");
     this.username = undefined;
+  },
+  updateLastSearch(lastSearch){
+    localStorage.setItem("last_search", lastSearch);
+    //sessionStorage.setItem("last_search", last_search1);
+    this.lastSearch = lastSearch;
   },
 };
 console.log(shared_data);

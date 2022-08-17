@@ -1,114 +1,102 @@
 <template >
   <div>
     <div class="recipe-footer">
-      <b-card
-        no-body
-        class="overflow-hidden"
-        style="max-width: 95%; margin: 10px"
-      >
-        <b-row no-gutters>
-          <b-col md="6">
+      <b-card no-body class="overflow-hidden">
+        <b-col no-gutters id="card">
+          <b-row md="6">
             <router-link
-              :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
+              :to="{ name: 'recipe', params: { recipeId: recipe.id , type:'spoonacular'} }"
               class="recipe-preview"
               ><b-card-img :src="recipe.image" alt="Image" class="recipe-image">
               </b-card-img>
             </router-link>
-          </b-col>
-          <b-col md="6">
+          </b-row>
+          <b-row md="6">
             <b-card-body :title="recipe.title" class="recipe-title">
               <b-card-text>
                 <b-container>
                   <b-row>
                     <b-col class="recipe-overview">
                       <img src="../assets/clock.png" class="img_logo" />
-                      {{ recipe.readyInMinutes }} minutes<br />
-
+                      {{ recipe.readyInMinutes }} min
+                    </b-col>
+                    <b-col class="recipe-overview">
                       <img src="../assets/like.png" class="img_logo" />
                       {{ recipe.popularity }}
                     </b-col>
 
                     <b-col class="recipe-overview">
-                      <div v-if="recipe.vegetarian">
-                        <img src="../assets/vegetarian.png" class="img_logo" />
-                        vegetarian
-                      </div>
-
-                      <div v-if="recipe.vegan">
-                        <img src="../assets/vegan1.png" class="img_logo" />
-                        vegan
-                      </div>
-
-                      <div v-if="!recipe.glutenFree">
-                        <img
-                          src="../assets/gluten_free1.png"
-                          class="img_logo"
-                        />
-                        Gluten Free
-                      </div>
-                    </b-col>
-                    <b-col class="recipe-overview">
                       <div v-if="recipe.view">
                         <img src="../assets/viewed.png" class="img_logo" />
-                        viewed
+                        <!-- viewed -->
                       </div>
                       <div v-if="!recipe.view">
                         <img src="../assets/not-viewed.png" class="img_logo" />
-                        not viewed
+                        <!-- not viewed -->
                       </div>
+                    </b-col>
 
+                    <b-col class="recipe-overview">
                       <div v-if="recipe.favorite">
                         <img src="../assets/favorite.png" class="img_logo" />
                         favorite
                       </div>
                       <div v-if="!recipe.favorite">
-                        <div
-                          class="img-wrapper"
-                          @mouseover="showText = 1"
-                          @mouseleave="showText = 0"
-                        >
-                          <img
-                            src="../assets/not-favorite.png"
-                            class="img_logo"
-                            @click="addToFavorites"
-                          />
-                          not favorite
-                          <span v-if="showText === 1">Text 1</span>
-                        </div>
+                        <!--<div
+                        class="img-wrapper"
+                        @mouseover="showText = 1"
+                        @mouseleave="showText = 0"
+                      >-->
+                        <img
+                          src="../assets/not-favorite.png"
+                          class="img_logo"
+                          id=addToFavorite
+                          @click="addToFavorites"
+                          v-b-popover.hover.bottom="'add to favorites'"
+                          title="add to favorites"
+                        
+                        />
+                        <!--<span v-if="showText === 1">add to favorites</span>-->
+                        <!-- not favorite -->
+
+                        <!--</div>-->
                       </div>
+                    </b-col>
+
+                    <b-col class="recipe-overview" v-if="recipe.glutenFree">
+                      
+                        <img
+                          src="../assets/gluten_free1.png"
+                          class="img_logo"
+                        /><br>
+                         Gluten Free 
+                      
+                    </b-col>
+                    <b-col class="recipe-overview" v-if="recipe.vegetarian">
+                     
+                        <img src="../assets/vegetarian.png" class="img_logo" />
+                         vegetarian 
+                     
+                    </b-col>
+                    <b-col class="recipe-overview" v-if="recipe.vegan">
+                     
+                        <img src="../assets/vegan1.png" class="img_logo" />
+                        vegan
+                     
                     </b-col>
                   </b-row>
                 </b-container>
               </b-card-text>
             </b-card-body>
-          </b-col>
-        </b-row>
+          </b-row>
+        </b-col>
       </b-card>
     </div>
-    <!-- <router-link
-    :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
-    class="recipe-preview"
-  >-->
-    <!--<div class="recipe-body">
-    <img :src="recipe.image" class="recipe-image" />
-    </div>-->
-
-    <!--<div :title="recipe.title" class="recipe-title">
-        {{ recipe.title }}
-      </div>-->
-    <!--<ul class="recipe-overview">
-        <li>{{ recipe.readyInMinutes }} minutes</li>
-        <li>{{ recipe.popularity }} likes</li>
-        <li>vegen: {{ recipe.vegan }}</li>
-        <li>vegetarian: {{ recipe.vegetarian }}</li>
-      </ul>-->
   </div>
   <!-- </router-link>-->
 </template>
 
 <script>
-//import { METHODS } from 'http';
-
 export default {
   /*mounted() {
     this.axios.get(this.recipe.image).then((i) => {
@@ -171,8 +159,9 @@ export default {
           process.env.VUE_APP_ROOT_API + "/users/favorites",
           {
             recipeId: this.recipe.id,
+            recipeFrom: "spoonacular"
           }
-          // "https://test-for-3-2.herokuapp.com/recipes/random"
+          //   // "https://test-for-3-2.herokuapp.com/recipes/random"
         );
 
         //const recipes = response.data;
@@ -236,17 +225,16 @@ table tr td {
 }
 .recipe-preview {
   display: inline-block;
-  width: 100%;
-  height: 100%;
+  width: 90%;
   position: relative;
-  margin: 10px 10px;
-  font-size: 17pt;
-  margin: 10px;
+  /* margin: 2px 10px; */
+  margin-left: 5%;
+  margin-top: 5%;
 }
 .recipe-preview > .recipe-body {
-  width: 100%;
-  height: 200px;
-  position: relative;
+  width: 10%;
+  height: 2px;
+  position: fixed;
 }
 
 .recipe-preview .recipe-body .recipe-image {
@@ -263,25 +251,27 @@ table tr td {
 }
 
 .recipe-preview .recipe-footer {
-  width: 100%;
+  width: 120%;
   height: 100%;
   overflow: hidden;
 }
 
 .recipe-preview .recipe-footer .recipe-title {
   padding: 10px 10px;
-  width: 100%;
+  width: 120%;
   color: black;
   font-family: cursive;
-  font-size: 14pt;
-  text-align: left;
   white-space: nowrap;
   overflow: hidden;
   -o-text-overflow: ellipsis;
   text-overflow: ellipsis;
 }
 
-
+.recipe-overview {
+  font-size: 80%;
+  text-align: center;
+  display: block;
+}
 /*.recipe-preview .recipe-footer ul.recipe-overview {
   padding: 5px 10px;
   width: 100%;
@@ -318,5 +308,8 @@ table tr td {
 .img_logo {
   width: 30px;
   height: 30px;
+}
+#addToFavorite:hover{
+  cursor: pointer;
 }
 </style>

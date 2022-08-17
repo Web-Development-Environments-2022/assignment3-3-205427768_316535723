@@ -2,10 +2,10 @@
   <div class="container">
     <h1 class="title">Favorites</h1>
     <b-container>
-    <h3>
+    <!--<h3>
       {{ title }}:
       <slot></slot>
-    </h3>
+    </h3>-->
     <!--<b-row>
       <b-col v-for="r in recipes" :key="r.id">
         <RecipePreview class="recipePreview" :recipe="r" />
@@ -14,7 +14,7 @@
     <b-row v-for="row in nrows" :key="row">
         <b-col v-for="col in 3" :key="col">
          <!--   {{recipes.length}} -->
-          <RecipePreview class="recipePreview" :recipe="recipes[(row-1) * 3 +(col-1)]" v-if="(row-1) * 3 + (col-1) < recipes.length" />
+          <RecipePreview class="recipePreview" type="spoonacular" :recipe="recipes[(row-1) * 3 +(col-1)]" v-if="(row-1) * 3 + (col-1) < recipes.length" />
         </b-col>
       </b-row>
   </b-container>
@@ -28,12 +28,12 @@ export default {
   components: {
     RecipePreview
   },
-  props: {
+ /* props: {
     title: {
       type: String,
       required: true
     }
-  },
+  },*/
   data() {
     return {
       recipes: []
@@ -50,12 +50,10 @@ export default {
   methods: {
     async favoriteRecipes() {
       try {
-       /* console.log(process.env.VUE_APP_ROOT_API);
+        console.log(process.env.VUE_APP_ROOT_API);
         const response = await this.axios.get(
-          //this.$root.store.server_domain + "/recipes/random",
+          //this.$root.store.server_domain + "/users/favorites",
           process.env.VUE_APP_ROOT_API + "/users/favorites"
-        //  "http://localhost:8080/users/views",
-          // "https://test-for-3-2.herokuapp.com/recipes/random"
         ); 
 
         // console.log(response);
@@ -64,7 +62,7 @@ export default {
         this.recipes = [];
         this.recipes.push(...recipes);
         console.log(response.data);
-        // console.log(this.recipes); */
+        // console.log(this.recipes); 
       } catch (error) {
         console.log(error);
       }
@@ -76,5 +74,11 @@ export default {
 <style lang="scss" scoped>
 .container {
   min-height: 400px;
+}
+h1.title{
+  margin-top: 2%;
+  display: block;
+  text-align: center;
+
 }
 </style>
